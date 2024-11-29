@@ -7,5 +7,15 @@ class SigninCubit extends Cubit<SigninState> {
   SigninCubit() : super(SigninInitial());
    
      
-     
+     void validateAndSignin(bool isValid) {
+        if (isValid) {
+      emit(SigninLoding());
+      Future.delayed(Duration(seconds: 1), () {
+        emit(SigninSuccess());
+      }
+      );
+    } else {
+      emit(SigninError("Please fill all the fields"));
+    }
+  }
 }
