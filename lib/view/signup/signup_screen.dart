@@ -14,6 +14,9 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController firtnamecontroller = TextEditingController();
     return Scaffold(
       body: BlocBuilder<SignupCubit, SignupState>(
         builder: (context, state) {
@@ -54,18 +57,19 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                     Text("Create Account", style: TextStyles.font32black),
                     const SizedBox(height: 30),
-                    CustomFirstname(),
+                    CustomFirstname(firstname: firtnamecontroller,),
                     const SizedBox(height: 16),
                     CustomLastname(),
                     const SizedBox(height: 16),
-                    CustomEmailcreate(),
+                    CustomEmailcreate(emailController: emailController,),
                     const SizedBox(height: 16),
-                    CustomPasscreate(),
+                    CustomPasscreate(passwordController: passwordController,),
                     const SizedBox(height: 40),
                     CustomContainer(
                       name: "Create Account",
                       ontap: () {
                         cubit.validateAndSubmit();
+                        cubit.createAccountFirebase(email: emailController.text, password: passwordController.text);
                       },
                     ),
                   ],

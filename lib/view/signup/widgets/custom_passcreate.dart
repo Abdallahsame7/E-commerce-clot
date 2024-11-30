@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
 class CustomPasscreate extends StatefulWidget {
-  const CustomPasscreate({super.key});
+ final TextEditingController passwordController;
 
+   CustomPasscreate({super.key, required this.passwordController});
+
+ 
   @override
   State<CustomPasscreate> createState() => _CustomPasscreateState();
 }
 
 class _CustomPasscreateState extends State<CustomPasscreate> {
+
       bool clicked = false;
 
   @override
@@ -24,6 +28,7 @@ class _CustomPasscreateState extends State<CustomPasscreate> {
          ]
        ),
       child: TextFormField(
+        controller:widget.passwordController,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter your password';

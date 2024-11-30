@@ -14,6 +14,7 @@ class ForgetpassScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     TextEditingController forgetpassCubit = TextEditingController();
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 27),
@@ -54,12 +55,13 @@ class ForgetpassScreen extends StatelessWidget {
                     style: TextStyles.font32black,
                   ),
                   SizedBox(height: 32.h),
-                  CustomEmailforget(),
+                  CustomEmailforget(emailController: forgetpassCubit,),
                   SizedBox(height: 40.h),
                   CustomContainer(
                     name: "Continue",
                     ontap: () {
                       cubit.validateAndProceed(context);
+                      cubit.forgetPassword(email: forgetpassCubit.text);
                     },
                   ),
                 ],

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomEmail extends StatelessWidget {
-  const CustomEmail({super.key});
+      final TextEditingController emailController;
+
+  const CustomEmail({super.key, required this.emailController});
   
 
   @override
   Widget build(BuildContext context) {
-
     String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
@@ -27,6 +28,7 @@ class CustomEmail extends StatelessWidget {
          ]
        ),
        child: TextFormField( 
+        controller: emailController,
         validator: (value) {
           return validateEmail(value);
         }, 

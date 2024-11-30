@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
@@ -16,4 +17,15 @@ class ForgetpassCubit extends Cubit<ForgetpassState> {
       emit(ForgetpassError("Please fill all the fields"));
     }
   }
+
+  void forgetPassword({required String email}) async {
+    await FirebaseAuth.instance
+        .sendPasswordResetEmail(email: email)
+        .then((value) {
+      emit(ForgetpassSuccess());
+    }).catchError((error) {
+      emit(ForgetpassError("error"));
+    });
+  }
+
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomFirstname extends StatelessWidget {
-  const CustomFirstname({super.key});
+  final TextEditingController firstname;
+  const CustomFirstname({super.key, required this.firstname});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class CustomFirstname extends StatelessWidget {
          ]
        ),
       child: TextFormField(
+        controller: firstname,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter your first name';

@@ -1,13 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/forgetpass/forgetpass_cubit.dart';
 import 'package:flutter_application_1/controller/onbaording/onboarding_cubit.dart';
 import 'package:flutter_application_1/controller/signin/signin_cubit.dart';
 import 'package:flutter_application_1/controller/signup/signup_cubit.dart';
+import 'package:flutter_application_1/core/shared/sharedPref.dart';
+import 'package:flutter_application_1/firebase_options.dart';
 import 'package:flutter_application_1/view/splash/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.cacheInitialization();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 

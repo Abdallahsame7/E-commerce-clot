@@ -12,9 +12,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SigninScreen extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -24,10 +27,11 @@ class SigninScreen extends StatelessWidget {
             child: BlocConsumer<SigninCubit, SigninState>(
               listener: (context, state) {
                 if (state is SigninSuccess) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Sign in successful")),
-                  );
-                 // NavigationHelper.goto(context, SignupScreen());
+                  // ScaffoldMessenger.of(context).showSnackBar(
+                  //   SnackBar(content: Text("Sign in successful")),
+                    
+                  // );
+                  
                 } else if (state is SigninError) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text(state.message)),
@@ -35,15 +39,16 @@ class SigninScreen extends StatelessWidget {
                 }
               },
               builder: (context, state) {
+                final cubit = SigninCubit.get(context);
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 123.h),
                     Text("Sign in", style: TextStyles.font32black),
                     SizedBox(height: 32.h),
-                    CustomEmail(),
+                    CustomEmail(emailController: emailController,),
                     SizedBox(height: 16.h),
-                    CustomPassword(),
+                    CustomPassword(passwordController: passwordController,),
                     SizedBox(height: 16.h),
                     if (state is SigninLoding)
                       Center(child: CircularProgressIndicator()),
@@ -53,6 +58,8 @@ class SigninScreen extends StatelessWidget {
                         ontap: () {
                           bool isValid = _formKey.currentState?.validate() ?? false;
                           BlocProvider.of<SigninCubit>(context).validateAndSignin(isValid);
+
+                          cubit.loginFirebase(email: emailController.text, password: passwordController.text, context: context);
                         },
                       ),
                     SizedBox(height: 16.h),

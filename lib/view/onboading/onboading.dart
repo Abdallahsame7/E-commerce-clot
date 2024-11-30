@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/controller/onbaording/onboarding_cubit.dart';
+import 'package:flutter_application_1/core/shared/sharedPref.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_application_1/core/components/custom_container.dart';
 import 'package:flutter_application_1/core/shared/navigation_helper.dart';
@@ -18,6 +19,7 @@ class OnboardingScreen extends StatelessWidget {
       body: BlocConsumer<OnboardingCubit, OnboardingState>(
         listener: (context, state) {
           if (state is OnboardingCompleted) {
+              CacheHelper.sharedPreferences.setBool('hasSeenOnboarding', true);
             NavigationHelper.goOff(context, SigninScreen());
           }
         },

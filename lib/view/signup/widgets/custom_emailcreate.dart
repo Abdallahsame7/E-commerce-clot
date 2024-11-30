@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomEmailcreate extends StatelessWidget {
-  const CustomEmailcreate({super.key});
+    final TextEditingController emailController;
+
+  const CustomEmailcreate({super.key, required this.emailController});
   
 
   @override
@@ -27,6 +29,7 @@ class CustomEmailcreate extends StatelessWidget {
          ]
        ),
        child: TextFormField( 
+        controller: emailController,
         validator: (value) {
           return validateEmail(value);
         }, 
